@@ -2,6 +2,7 @@
     strElse: .asciiz "Entre en else."
     strPrimeraCondicion: .asciiz "Entre en la primera condicion." 
     strSegundaCondicion: .asciiz "Entre en la segunda condicion." 
+    strSalir: .asciiz "Voy a salir."
 
 .text 
 .globl main 
@@ -25,8 +26,7 @@ main:
     la $a0, strElse #Mover a ese registro la dirección de memoria del string a imprimir 
     syscall #Hacer la llamada 
 
-    li $v0, 10 #Exit 
-    syscall #Para ya salir del programa 
+    b salir
 
 primeraCondicion: 
     #Aquí haría todo lo de la primera condición
@@ -35,8 +35,8 @@ primeraCondicion:
     la $a0, strPrimeraCondicion #Mover a ese registro la dirección de memoria del string a imprimir 
     syscall #Hacer la llamada 
 
-    li $v0, 10 #Exit 
-    syscall #Para ya salir del programa 
+    b salir
+
 
 
 segundaCondicion: 
@@ -45,6 +45,16 @@ segundaCondicion:
     li $v0, 4 #Código para imprimir string 
     la $a0, strSegundaCondicion #Mover a ese registro la dirección de memoria del string a imprimir 
     syscall #Hacer la llamada 
+
+    b salir
+
+    
+
+salir:
+    #En este ejemplo aquí vienen todos los códigos y es lo que se haría después de ejecutar el código de la condición
+    li $v0, 4 
+    la $a0, strSalir 
+    syscall 
 
     li $v0, 10 #Exit 
     syscall #Para ya salir del programa 
